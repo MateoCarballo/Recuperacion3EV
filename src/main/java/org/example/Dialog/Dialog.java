@@ -1,6 +1,7 @@
 package org.example.Dialog;
 
 import org.example.Empresa.Empresa;
+import org.example.Excepciones.FormatoCifInvalido;
 import org.example.Producto.ProductoAlquiler;
 import org.example.Producto.ProductoVenta;
 
@@ -45,19 +46,18 @@ public class Dialog {
             switch (Integer.parseInt(lecturaMenu)){
                 //* Altas Empresas *
                 case 11->{
-                    System.out.println("Nombre de la empresa");
-                    String nombreEmpresa = br.readLine();
-                    String cif ="";
-                    do{
+                    try{
+                        System.out.println("Nombre de la empresa");
+                        String nombreEmpresa = br.readLine();
                         System.out.println("CIF Empresa");
-                        cif=br.readLine();
-                        if(!validarCIF(cif)){
-                            System.out.println("El formato no es valido, revisa el CIF introducido");
-                        }
-                    }while(!validarCodigoProductoVenta(cif));
-                    System.out.println("Telefono de contacto");
-                    String telefono = br.readLine();
-                    altaEmpresa(cif,nombreEmpresa,telefono);
+                        String cif=br.readLine();
+                        validarCIF(cif);
+                        System.out.println("Telefono de contacto");
+                        String telefono = br.readLine();
+                        altaEmpresa(cif,nombreEmpresa,telefono);
+                    }catch(FormatoCifInvalido e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 //* Altas Productos Ventas *
                 case 121->{
@@ -218,8 +218,11 @@ public class Dialog {
 //TODO descomponer para validar en cada uno de los casos,
 // insertar algoritmo para comprobar no solo el formato sino
 // tambien que exista y cumpla el algoritmo.
-    private boolean validarCIF(String validaCIF){
-        return validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}");
+    private void validarCIF(String validaCIF) throws FormatoCifInvalido {
+        if(!validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}"){
+            throw new FormatoCifInvalido();
+        }
+
     }
 
 }
