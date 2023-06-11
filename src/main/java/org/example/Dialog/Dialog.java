@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Dialog {
-    ArrayList<Empresa> listadoEmpresas;
+    private ArrayList<Empresa> listadoEmpresas=null;
     public void menu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         listadoEmpresas= new ArrayList<>();
@@ -40,6 +40,7 @@ public class Dialog {
             String lecturaMenu=br.readLine();
 
             switch (Integer.parseInt(lecturaMenu)){
+                //* Altas Empresas *
                 case 11->{
                     System.out.println("Nombre de la empresa");
                     String nombreEmpresa = br.readLine();
@@ -49,30 +50,30 @@ public class Dialog {
                     String telefono = br.readLine();
                     altaEmpresa(cif,nombreEmpresa,telefono);
                 }
+                //* Altas Productos Ventas *
                 case 121->{
-                    System.out.println("Nombre");
-                    String nombreProducto = br.readLine();
                     //TODO comprobar por expresiones regulares
                     // que el codigo tiene la forma deseada
                     // para ventas -> V000
+
+                    String[] datosProductoVenta = new String[4];
                     System.out.println("Codigo del producto");
-                    String codigoProducto = br.readLine();
+                    datosProductoVenta[0]=br.readLine();
                     System.out.println("Marca");
-                    String marcaProducto = br.readLine();
+                    datosProductoVenta[1]=br.readLine();
                     System.out.println("Modelo");
-                    String modeloProducto=br.readLine();
+                    datosProductoVenta[2]=br.readLine();
                     System.out.println("CIF de la empresa que tiene el producto");
-                    String cifEmpresa=br.readLine();
+                    datosProductoVenta[3]=br.readLine();
+                    for (int i = 0; i < datosProductoVenta.length; i++) {
+
+                    }
                     System.out.println("Precio venta");
                     float precioVenta= Float.parseFloat(br.readLine());
-                    altaProductoVenta(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioVenta);
+                    altaProductoVenta(datosProductoVenta[0],datosProductoVenta[1],datosProductoVenta[2],datosProductoVenta[3],precioVenta);
                 }
+                //* Altas Productos Alquiler *
                 case 122->{
-                    System.out.println("Nombre");
-                    String nombreProducto = br.readLine();
-                    //TODO comprobar por expresiones regulares
-                    // que el codigo tiene la forma deseada
-                    // para alquileres -> A000
                     System.out.println("Codigo del producto");
                     String codigoProducto = br.readLine();
                     System.out.println("Marca");
@@ -92,7 +93,9 @@ public class Dialog {
                     String codigoProducto = br.readLine();
                     borrarProducto(cifEmpresa,codigoProducto);
                 }
-                //TODO esto podria ser lo mismo a la hora de preguntarlo por teclado?
+                //TODO esto podria ser lo mismo a la hora de preguntarlo por teclado? \
+                // por ahora lo dejamos por separado mejor que cada método haga solo 1 cosa en 1 sitio.
+
                 case 311->{
                     System.out.println("Introduce la empresa que tiene el producto");
                     String cifEmpresa=br.readLine();
@@ -143,18 +146,24 @@ public class Dialog {
     }
     private void modificarPrecioVenta(String cifEmpresa, String codigoProducto, float nuevoValor) {
         for (Empresa e:listadoEmpresas) {
-            if (e.getCif()==cifEmpresa){
-                e.borrarProducto(codigoProducto);
+            if (e.getCif().equalsIgnoreCase(cifEmpresa)){
+                e.modificarPrecioProducto(codigoProducto,nuevoValor);
             }
         }
     }
     private void modificarPrecioAlquiler(String cifEmpresa, String codigoProducto, float nuevoValor) {
         for (Empresa e:listadoEmpresas) {
-            if (e.getCif()==cifEmpresa){
-                e.borrarProducto(codigoProducto);
+            if (e.getCif().equalsIgnoreCase(cifEmpresa)){
+                e.modificarPrecioProducto(codigoProducto,nuevoValor);
             }
         }
     }
 
+    private boolean validarCodigoProductoVenta(String codigoVenta){
+            return codigoVenta.matches("'V'[0-9]{3}");
+    }
+    private boolean validarCodigoProductoAlquiler(String codigoAlquiler){
+        return codigoAlquiler.matches("'A'[0-9]{3}");
+    }
 }
 

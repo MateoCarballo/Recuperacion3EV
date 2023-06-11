@@ -61,14 +61,14 @@ public class Empresa {
         }
     }
     public void modificarPrecioProducto(String codigoProducto,float nuevoValor){
-        for (int i = 0; i < listadoProductos.size(); i++) {
-            if((listadoProductos.get(i) instanceof ProductoVenta)&&
-                    (((ProductoVenta) listadoProductos.get(i)).getCodigo().equals(codigoProducto))){
-                ((ProductoVenta) listadoProductos.get(i)).setPrecioventa(nuevoValor);
+        for (Producto listadoProducto : listadoProductos) {
+            if ((listadoProducto instanceof ProductoVenta) &&
+                    (listadoProducto.getCodigo().equals(codigoProducto))) {
+                ((ProductoVenta) listadoProducto).setPrecioventa(nuevoValor);
             }
-            if((listadoProductos.get(i) instanceof ProductoAlquiler)&&
-                    (((ProductoAlquiler) listadoProductos.get(i)).getCodigo().equals(codigoProducto))){
-                ((ProductoAlquiler) listadoProductos.get(i)).setPrecioDia(nuevoValor);
+            if ((listadoProducto instanceof ProductoAlquiler) &&
+                    (listadoProducto.getCodigo().equals(codigoProducto))) {
+                ((ProductoAlquiler) listadoProducto).setPrecioDia(nuevoValor);
             }
         }
     }

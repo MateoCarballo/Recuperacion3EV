@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Recuperacion3EV" />
         <module name="Recuperacion_3ev" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Recuperacion3EV" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>
