@@ -1,5 +1,6 @@
 package org.example.Empresa;
 
+import org.example.Excepciones.ArticuloAlquilado;
 import org.example.Producto.Producto;
 import org.example.Producto.ProductoAlquiler;
 import org.example.Producto.ProductoVenta;
@@ -70,6 +71,24 @@ public class Empresa {
                     (listadoProducto.getCodigo().equals(codigoProducto))) {
                 ((ProductoAlquiler) listadoProducto).setPrecioDia(nuevoValor);
             }
+        }
+    }
+    public boolean comprobarDisponibilidad(String codigoProductoAlquiler){
+        boolean disponible =false;
+        for (Producto p:listadoProductos){
+            if ((p.getCodigo().equalsIgnoreCase(codigoProductoAlquiler)) && (((ProductoAlquiler) p).getEstado() == 'L')) {
+                disponible = true;
+                // TODO esto se deberia quitar??
+                break;
+            }
+        }
+       return disponible;
+    }
+    public void alquilarProducto(String codigoProducto) throws ArticuloAlquilado {
+        if (comprobarDisponibilidad(codigoProducto)){
+
+        }else{
+            throw new ArticuloAlquilado();
         }
     }
 }

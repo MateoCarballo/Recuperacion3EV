@@ -159,7 +159,19 @@ public class Dialog {
                 }
                 //* NUEVO ALQUILER *
                 case 41->{
+                    try {
+                        System.out.println("Introduce el CIF de la empresa");
+                        String cif = br.readLine();
+                        validarCIF(cif);
+                        System.out.println("Introduce el producto del articulo a Alquilar");
+                        String codigoArticulo = br.readLine();
+                        validarCodigoProductoAlquiler(codigoArticulo);
 
+                    }catch(FormatoCifInvalido e){
+                        System.out.println(e.getMessage());
+                    }catch (CodigoAlquilerInvalido e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 //* NUEVA VENTA *
                 case 42->{
@@ -188,6 +200,7 @@ public class Dialog {
             if (e.getCif().equals(cifEmpresa)){
                 e.anadirProducto(new ProductoVenta(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioVenta));
             }
+            //TODO crear excepcion si la empresa no existe para que salte si no esta registrada ninguna empresa con el CIF introducido
         }
     }
     private void altaProductoAlquiler(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioDiaAlquiler){
@@ -261,6 +274,17 @@ public class Dialog {
         }
 
     }
-
+private void alquilarProducto(String cif, String codigoArticulo){
+        //TODO Revisar el codigo quiza implementar algun algoritmo de busqueda que me de la posicion.
+         for (Empresa e:listadoEmpresas){
+             if (e.getCif().equalsIgnoreCase(cif)){
+                 try {
+                     e.alquilarProducto(codigoArticulo);
+                 } catch (ArticuloAlquilado e) {
+                     System.out.println(e.getMessage());
+                 }
+             }
+         }
+}
 }
 
