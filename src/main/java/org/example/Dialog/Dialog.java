@@ -1,7 +1,7 @@
 package org.example.Dialog;
 
 import org.example.Empresa.Empresa;
-import org.example.Excepciones.FormatoCifInvalido;
+import org.example.Excepciones.*;
 import org.example.Producto.ProductoAlquiler;
 import org.example.Producto.ProductoVenta;
 
@@ -61,81 +61,101 @@ public class Dialog {
                 }
                 //* Altas Productos Ventas *
                 case 121->{
-                    //TODO comprobar por expresiones regulares
-                    // que el codigo tiene la forma deseada
-                    // para ventas -> V000
-
-                    String[] datosProductoVenta = new String[4];
-                    do{
+                    try{
+                        String[] datosProductoVenta = new String[4];
                         System.out.println("Codigo del producto");
                         datosProductoVenta[0]=br.readLine();
-                        if(!validarCodigoProductoVenta(datosProductoVenta[0])){
-                            System.out.println("El formato no es valido, revisa el codigo introducido");
-                        }
-                    }while(!validarCodigoProductoVenta(datosProductoVenta[0]));
-                    System.out.println("Marca");
-                    datosProductoVenta[1]=br.readLine();
-                    System.out.println("Modelo");
-                    datosProductoVenta[2]=br.readLine();
-                    System.out.println("CIF de la empresa que tiene el producto");
-                    datosProductoVenta[3]=br.readLine();
-                    System.out.println("Precio venta");
-                    float precioVenta= Float.parseFloat(br.readLine());
-                    altaProductoVenta(datosProductoVenta[0],datosProductoVenta[1],datosProductoVenta[2],datosProductoVenta[3],precioVenta);
+                        validarCodigoProductoVenta(datosProductoVenta[0]);
+                        System.out.println("Marca");
+                        datosProductoVenta[1]=br.readLine();
+                        System.out.println("Modelo");
+                        datosProductoVenta[2]=br.readLine();
+                        System.out.println("CIF de la empresa que tiene el producto");
+                        datosProductoVenta[3]=br.readLine();
+                        System.out.println("Precio venta");
+                        float precioVenta= Float.parseFloat(br.readLine());
+                        altaProductoVenta(datosProductoVenta[0],datosProductoVenta[1],datosProductoVenta[2],datosProductoVenta[3],precioVenta);
+                    }catch (CodigoVentaInvalido e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 //* Altas Productos Alquiler *
                 case 122->{
-                    String codigoProducto="null";
-                    do{
+                    try{
                         System.out.println("Codigo del producto");
-                        codigoProducto=br.readLine();
-                        if(!validarCodigoProductoVenta(codigoProducto)){
-                            System.out.println("El formato no es valido, revisa el codigo introducido");
-                        }
-                    }while(!validarCodigoProductoAlquiler(codigoProducto));
-                    System.out.println("Marca");
-                    String marcaProducto = br.readLine();
-                    System.out.println("Modelo");
-                    String modeloProducto=br.readLine();
-                    System.out.println("CIF de la empresa que tiene el producto");
-                    String cifEmpresa=br.readLine();
-                    System.out.println("Precio dia");
-                    float precioDiaAlquiler= Float.parseFloat(br.readLine());
-                    altaProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler);
+                        String codigoProducto=br.readLine();
+                        validarCodigoProductoAlquiler(codigoProducto);
+                        System.out.println("Marca");
+                        String marcaProducto = br.readLine();
+                        System.out.println("Modelo");
+                        String modeloProducto=br.readLine();
+                        System.out.println("CIF de la empresa que tiene el producto");
+                        String cifEmpresa=br.readLine();
+                        System.out.println("Precio dia");
+                        float precioDiaAlquiler= Float.parseFloat(br.readLine());
+                        altaProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler);
+                    }catch (CodigoAlquilerInvalido e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 case 21-> {
-                    String cif;
-                    do {
+                   try{
                         System.out.println("Introduce el CIF de la empresa");
-                        cif = br.readLine();
-                        if (!validarCIF(cif)) {
-                            System.out.println("El formato no es valido, revisa el CIF introducido");
-                        }
-                    } while (!validarCodigoProductoVenta(cif));
-                    System.out.println("Introduce el codigo del producto a eliminar");
-                    String codigoProducto = br.readLine();
-                    borrarProducto(cif, codigoProducto);
+                        String cif = br.readLine();
+                        validarCIF(cif);
+                        System.out.println("Introduce el codigo del producto a eliminar");
+                        String codigoProducto = br.readLine();
+                        validarCodigoProducto(codigoProducto);
+                        borrarProducto(cif, codigoProducto);
+                    }catch(FormatoCifInvalido errorCIF) {
+                       System.out.println(errorCIF.getMessage());
+                   }catch (FormatoCodigoInvalido errorCodigoProducto){
+                       System.out.println(errorCodigoProducto.getMessage());
+                   }
                 }
-                //TODO esto podria ser lo mismo a la hora de preguntarlo por teclado? \
-                // por ahora lo dejamos por separado mejor que cada método haga solo 1 cosa en 1 sitio.
-
                 case 311->{
-                    System.out.println("Introduce la empresa que tiene el producto");
-                    String cifEmpresa=br.readLine();
-                    System.out.println("Introduce el codigo del producto a modificar");
-                    String codigoProducto = br.readLine();
-                    System.out.println("Introduce el nuevo valor");
-                    float nuevoValor= Float.parseFloat(br.readLine());
-                    modificarPrecioVenta(cifEmpresa,codigoProducto,nuevoValor);
+                    try{
+                        System.out.println("Introduce la empresa que tiene el producto");
+                        String cifEmpresa=br.readLine();
+                        validarCIF(cifEmpresa);
+                        System.out.println("Introduce el codigo del producto a modificar");
+                        String codigoProducto = br.readLine();
+                        validarCodigoProductoVenta(codigoProducto);
+                        System.out.println("Introduce el nuevo valor");
+                        float nuevoValor= Float.parseFloat(br.readLine());
+                        validarNumeroIntroducido(nuevoValor);
+                        modificarPrecioVenta(cifEmpresa,codigoProducto,nuevoValor);
+                    }catch(FormatoCifInvalido errorCIF) {
+                        System.out.println(errorCIF.getMessage());
+                    }catch (CodigoVentaInvalido eCodigoVenta){
+                        System.out.println(eCodigoVenta.getMessage());
+                    }catch (ValorIgualACero errorValor){
+                        System.out.println(errorValor.getMessage());
+                    }catch (ValorMenorQueCero errorValor){
+                        System.out.println(errorValor.getMessage());
+                    }
                 }
                 case 312->{
-                    System.out.println("Introduce la empresa que tiene el producto");
-                    String cifEmpresa=br.readLine();
-                    System.out.println("Introduce el codigo del producto a modificar");
-                    String codigoProducto = br.readLine();
-                    System.out.println("Introduce el nuevo valorpor dia");
-                    float nuevoValor= Float.parseFloat(br.readLine());
-                    modificarPrecioAlquiler(cifEmpresa,codigoProducto,nuevoValor);
+                    try{
+                        System.out.println("Introduce la empresa que tiene el producto");
+                        String cifEmpresa=br.readLine();
+                        validarCIF(cifEmpresa);
+                        System.out.println("Introduce el codigo del producto a modificar");
+                        String codigoProducto = br.readLine();
+                        validarCodigoProductoAlquiler(codigoProducto);
+                        System.out.println("Introduce el nuevo valorpor dia");
+                        float nuevoValor= Float.parseFloat(br.readLine());
+                        validarNumeroIntroducido(nuevoValor);
+                        modificarPrecioAlquiler(cifEmpresa,codigoProducto,nuevoValor);
+                    }catch(FormatoCifInvalido errorCIF) {
+                        System.out.println(errorCIF.getMessage());
+                    }catch (CodigoAlquilerInvalido eCodigoVenta){
+                        System.out.println(eCodigoVenta.getMessage());
+                    }catch (ValorIgualACero errorValor){
+                        System.out.println(errorValor.getMessage());
+                    }catch (ValorMenorQueCero errorValor){
+                        System.out.println(errorValor.getMessage());
+                    }
                 }
                 //* NUEVO ALQUILER *
                 case 41->{
@@ -148,6 +168,15 @@ public class Dialog {
                 case 0->{salir =true;}
             }
         }while (!salir);
+    }
+
+    private void validarNumeroIntroducido(float nuevoValor) throws ValorMenorQueCero, ValorIgualACero {
+        if (nuevoValor<0){
+            throw new ValorMenorQueCero();
+        }
+        if (nuevoValor==0){
+            throw new ValorIgualACero();
+        }
     }
 
 
@@ -189,12 +218,20 @@ public class Dialog {
             }
         }
     }
-
-    private boolean validarCodigoProductoVenta(String codigoVenta){
-            return codigoVenta.matches("'V'[0-9]{3}");
+    private void validarCodigoProducto(String codigoProducto) throws FormatoCodigoInvalido {
+        if (!codigoProducto.matches("[VA][0-9]{3}")) {
+            throw new FormatoCodigoInvalido();
+        }
     }
-    private boolean validarCodigoProductoAlquiler(String codigoAlquiler){
-        return codigoAlquiler.matches("'A'[0-9]{3}");
+    private void validarCodigoProductoVenta(String codigoVenta) throws CodigoVentaInvalido {
+        if (!codigoVenta.matches("'V'[0-9]{3}")) {
+            throw new CodigoVentaInvalido();
+        }
+    }
+    private void validarCodigoProductoAlquiler(String codigoAlquiler) throws CodigoAlquilerInvalido {
+        if (!codigoAlquiler.matches("'V'[0-9]{3}")) {
+            throw new CodigoAlquilerInvalido();
+        }
     }
 
     /*
