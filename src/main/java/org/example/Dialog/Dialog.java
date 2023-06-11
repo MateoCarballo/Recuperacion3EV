@@ -44,8 +44,14 @@ public class Dialog {
                 case 11->{
                     System.out.println("Nombre de la empresa");
                     String nombreEmpresa = br.readLine();
-                    System.out.println("CIF de la empresa");
-                    String cif = br.readLine();
+                    String cif ="";
+                    do{
+                        System.out.println("CIF Empresa");
+                        cif=br.readLine();
+                        if(!validarCIF(cif)){
+                            System.out.println("El formato no es valido, revisa el CIF introducido");
+                        }
+                    }while(!validarCodigoProductoVenta(cif));
                     System.out.println("Telefono de contacto");
                     String telefono = br.readLine();
                     altaEmpresa(cif,nombreEmpresa,telefono);
@@ -57,25 +63,33 @@ public class Dialog {
                     // para ventas -> V000
 
                     String[] datosProductoVenta = new String[4];
-                    System.out.println("Codigo del producto");
-                    datosProductoVenta[0]=br.readLine();
+                    do{
+                        System.out.println("Codigo del producto");
+                        datosProductoVenta[0]=br.readLine();
+                        if(!validarCodigoProductoVenta(datosProductoVenta[0])){
+                            System.out.println("El formato no es valido, revisa el codigo introducido");
+                        }
+                    }while(!validarCodigoProductoVenta(datosProductoVenta[0]));
                     System.out.println("Marca");
                     datosProductoVenta[1]=br.readLine();
                     System.out.println("Modelo");
                     datosProductoVenta[2]=br.readLine();
                     System.out.println("CIF de la empresa que tiene el producto");
                     datosProductoVenta[3]=br.readLine();
-                    for (int i = 0; i < datosProductoVenta.length; i++) {
-
-                    }
                     System.out.println("Precio venta");
                     float precioVenta= Float.parseFloat(br.readLine());
                     altaProductoVenta(datosProductoVenta[0],datosProductoVenta[1],datosProductoVenta[2],datosProductoVenta[3],precioVenta);
                 }
                 //* Altas Productos Alquiler *
                 case 122->{
-                    System.out.println("Codigo del producto");
-                    String codigoProducto = br.readLine();
+                    String codigoProducto="null";
+                    do{
+                        System.out.println("Codigo del producto");
+                        codigoProducto=br.readLine();
+                        if(!validarCodigoProductoVenta(codigoProducto)){
+                            System.out.println("El formato no es valido, revisa el codigo introducido");
+                        }
+                    }while(!validarCodigoProductoAlquiler(codigoProducto));
                     System.out.println("Marca");
                     String marcaProducto = br.readLine();
                     System.out.println("Modelo");
@@ -86,12 +100,18 @@ public class Dialog {
                     float precioDiaAlquiler= Float.parseFloat(br.readLine());
                     altaProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler);
                 }
-                case 21->{
-                    System.out.println("Introduce el cif de la empresa");
-                    String cifEmpresa =br.readLine();
+                case 21-> {g
+                    String cif;
+                    do {
+                        System.out.println("Introduce el CIF de la empresa");
+                        cif = br.readLine();
+                        if (!validarCIF(cif)) {
+                            System.out.println("El formato no es valido, revisa el CIF introducido");
+                        }
+                    } while (!validarCodigoProductoVenta(cif));
                     System.out.println("Introduce el codigo del producto a eliminar");
                     String codigoProducto = br.readLine();
-                    borrarProducto(cifEmpresa,codigoProducto);
+                    borrarProducto(cif, codigoProducto);
                 }
                 //TODO esto podria ser lo mismo a la hora de preguntarlo por teclado? \
                 // por ahora lo dejamos por separado mejor que cada método haga solo 1 cosa en 1 sitio.
@@ -165,5 +185,31 @@ public class Dialog {
     private boolean validarCodigoProductoAlquiler(String codigoAlquiler){
         return codigoAlquiler.matches("'A'[0-9]{3}");
     }
+
+    /*
+    Un CIF debe tener 9 cifras.
+    La primera cifra (Una letra), indica el tipo de sociedad al que hace referencia, según esta tabla:
+
+    A - Sociedades Anónimas
+    B - Sociedades de responsabilidad limitada
+    C - Sociedades colectivas
+    D - Sociedades comanditarias
+    E - Comunidades de bienes
+    F - Sociedades cooperativas
+    G - Asociaciones y otros tipos no definidos
+    H - Comunidades de propietarios
+    P - Corporaciones locales
+    Q - Organismos autónomos
+    S - Organos de la administración
+    K, L y M - seguramente para compatibilidad con formatos antiguos
+    X - Extranjeros, que en lugar del D.N.I. tienen el N.I.E.
+     */
+//TODO descomponer para validar en cada uno de los casos,
+// insertar algoritmo para comprobar no solo el formato sino
+// tambien que exista y cumpla el algoritmo.
+    private boolean validarCIF(String validaCIF){
+        return validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}");
+    }
+
 }
 
