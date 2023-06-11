@@ -269,7 +269,7 @@ public class Dialog {
 // insertar algoritmo para comprobar no solo el formato sino
 // tambien que exista y cumpla el algoritmo.
     private void validarCIF(String validaCIF) throws FormatoCifInvalido {
-        if(!validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}"){
+        if(!validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}")){
             throw new FormatoCifInvalido();
         }
 
@@ -280,8 +280,8 @@ private void alquilarProducto(String cif, String codigoArticulo){
              if (e.getCif().equalsIgnoreCase(cif)){
                  try {
                      e.alquilarProducto(codigoArticulo);
-                 } catch (ArticuloAlquilado e) {
-                     System.out.println(e.getMessage());
+                 } catch (ArticuloAlquilado ex) {
+                     System.out.println(ex.getMessage());
                  }
              }
          }
