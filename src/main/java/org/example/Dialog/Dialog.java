@@ -132,14 +132,14 @@ public class Dialog {
     }
     private void altaProductoAlquiler(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioDiaAlquiler){
         for (Empresa e:listadoEmpresas) {
-            if (e.getCif()==cifEmpresa){
+            if (e.getCif().equalsIgnoreCase(cifEmpresa)){
                 e.anadirProducto(new ProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler));
             }
         }
     }
     private void borrarProducto(String cifEmpresa, String codigoProducto){
         for (Empresa e:listadoEmpresas) {
-            if (e.getCif()==cifEmpresa){
+            if (e.getCif().equalsIgnoreCase(cifEmpresa)){
                 e.borrarProducto(codigoProducto);
             }
         }
