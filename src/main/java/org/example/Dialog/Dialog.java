@@ -29,6 +29,9 @@ public class Dialog {
                     31.PRODUCTOS.
                         311.PRODUCTOS VENTA (MODIFICAR PRECIO VENTA).
                         312.PRODUCTO ALQUILER (MODIFICAR PRECIO POR DIA).
+                4.REALIZAR
+                    41.NUEVO ALQUILER.
+                    42.NUEVA VENTA.
                 5.LISTADO.
                     51.TODAS LAS EMPRESAS CON TODOS LOS PRODUCTOS.
                     52.TODOS LOS PRODUCTOS DE UNA UNICA EMPRESA.
@@ -100,7 +103,7 @@ public class Dialog {
                     float precioDiaAlquiler= Float.parseFloat(br.readLine());
                     altaProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler);
                 }
-                case 21-> {g
+                case 21-> {
                     String cif;
                     do {
                         System.out.println("Introduce el CIF de la empresa");
@@ -133,6 +136,14 @@ public class Dialog {
                     System.out.println("Introduce el nuevo valorpor dia");
                     float nuevoValor= Float.parseFloat(br.readLine());
                     modificarPrecioAlquiler(cifEmpresa,codigoProducto,nuevoValor);
+                }
+                //* NUEVO ALQUILER *
+                case 41->{
+
+                }
+                //* NUEVA VENTA *
+                case 42->{
+
                 }
                 case 0->{salir =true;}
             }
