@@ -9,6 +9,8 @@ import org.example.Producto.ProductoVenta;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -182,6 +184,17 @@ public class Dialog {
                     System.out.println("Introduce el codigo del articulo a Alquilar");
                         String codigoArticulo = br.readLine();
                         validarCodigoProductoAlquiler(codigoArticulo);
+                        System.out.println("Introduce la fecha de comienzo del ALQUILER(yyyy/MM/dd)");
+                        String fechaInicio= br.readLine();
+                        LocalDate fechaInicioAlquiler = LocalDate.of(Integer.parseInt(fechaInicio.substring(0,4)),
+                                Integer.parseInt(fechaInicio.substring(4,6)),
+                                Integer.parseInt(fechaInicio.substring(6)));
+                        System.out.println("Introduce la fecha fin del ALQUILER(yyyy/MM/dd)");
+                        String fechaFin= br.readLine();
+                        LocalDate fechaFinAlquiler = LocalDate.of(Integer.parseInt(fechaFin.substring(0,4)),
+                                Integer.parseInt(fechaFin.substring(4,6)),
+                                Integer.parseInt(fechaFin.substring(6)));
+                        alquilarProducto(cif,codigoArticulo,fechaInicio,fechaFinAlquiler);
                     }catch(FormatoCifInvalido e){
                         System.out.println(e.getMessage());
                     }catch (CodigoAlquilerInvalido e){
@@ -272,10 +285,10 @@ public class Dialog {
 // insertar algoritmo para comprobar no solo el formato sino
 // tambien que exista y cumpla el algoritmo.
 
-    private void alquilarProducto(String cif, String codigoArticulo){
+    private void alquilarProducto(String cif, String codigoArticulo,LocalDate fechaInicio,LocalDate fechaFin){
         Empresa e = hashMapEmpresas.get(cif);
         try{
-            e.alquilarProducto(codigoArticulo);
+            e.alquilarProducto(codigoArticulo,fechaInicio,fechaFin);
         }catch (ArticuloAlquilado ex) {
             System.out.println(ex.getMessage());
         }

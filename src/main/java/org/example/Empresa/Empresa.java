@@ -5,6 +5,7 @@ import org.example.Producto.Producto;
 import org.example.Producto.ProductoAlquiler;
 import org.example.Producto.ProductoVenta;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,10 +114,10 @@ public class Empresa {
         return disponible;
         }
 
-    public void alquilarProducto(String codigoProducto) throws ArticuloAlquilado {
+    public void alquilarProducto(String codigoProducto, LocalDate fechaI, LocalDate fechaF) throws ArticuloAlquilado {
         if (comprobarDisponibilidad(codigoProducto)){
             ProductoAlquiler pAlquiler = (ProductoAlquiler) hashMapProductosPorID.get(codigoProducto);
-            pAlquiler.crearUso(codigoProducto);
+            pAlquiler.crearUso(codigoProducto,fechaI,fechaF);
         }else{
             throw new ArticuloAlquilado();
         }

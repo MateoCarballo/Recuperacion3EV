@@ -10,6 +10,13 @@ public class Usos {
     private String codigoProducto;
     private String codigoUso;
 
+    public Usos(LocalDate fechaAlquiler, LocalDate fechaDeEntrega, float importeAPagar, String codigoProducto, String codigoUso) {
+        this.fechaAlquiler = fechaAlquiler;
+        this.fechaDeEntrega = fechaDeEntrega;
+        this.importeAPagar = importeAPagar;
+        this.codigoProducto = codigoProducto;
+        this.codigoUso = codigoUso;
+    }
 
     public Usos(LocalDate fechaAlquiler, float importeAPagar, String codigoProducto, String codigoUso) {
         this.fechaAlquiler = fechaAlquiler;
@@ -17,7 +24,6 @@ public class Usos {
         this.importeAPagar = importeAPagar;
         this.codigoProducto = codigoProducto;
         this.codigoUso = codigoUso;
-        calcularPrecioPeriodoAlquilado();
     }
 
     public LocalDate getFechaAlquiler() {

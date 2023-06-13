@@ -43,14 +43,15 @@ public class ProductoAlquiler extends Producto{
         this.alquileres = alquileres;
     }
     //TODO pregunta importante para Maria esto estaria bien ?
-    public void crearUso(String codigoProducto){
-        Usos u =new Usos(LocalDate.now(),0.0f,codigoProducto,generarClaveHashMap());
-        calcularImporteAlquiler(u);
+    public void crearUso(String codigoProducto,LocalDate fechaInicioAlquiler,LocalDate fechaFinAlquiler){
+        Usos u =new Usos(fechaInicioAlquiler,fechaFinAlquiler,
+                this.precioDia*calcularDiferenciaDias(fechaInicioAlquiler,fechaFinAlquiler),
+                codigoProducto,generarClaveHashMap());
         alquileres.put(u.getCodigoUso(),u);
     }
-    public void calcularImporteAlquiler(Usos u){
-        long diferenciaDias = u.getFechaAlquiler().until(u.getFechaDeEntrega(), ChronoUnit.DAYS);
-        u.setImporteAPagar(diferenciaDias*precioDia);
+    public long calcularDiferenciaDias(LocalDate fInicio, LocalDate fFin){
+        return  fInicio.until(fFin, ChronoUnit.DAYS);
+
     }
     public static String generarClaveHashMap() {
         LocalDate currentDate = LocalDate.now();
