@@ -44,7 +44,8 @@ public class ProductoAlquiler extends Producto{
         this.alquileres = alquileres;
     }
     public void crearUso(String codigoProducto){
-        alquileres.put(generarClaveHashMap(),new Usos(Date.from()))
+        Usos u =new Usos(LocalDate.now(),0.0f,codigoProducto,generarClaveHashMap());
+        alquileres.put(u.getCodigoUso(),u);
     }
 
     public static String generarClaveHashMap() {

@@ -11,9 +11,9 @@ public class Usos {
     private String codigoUso;
 
 
-    public Usos(LocalDate fechaAlquiler, LocalDate dechaEntrega, float importeAPagar, String codigoProducto, String codigoUso) {
+    public Usos(LocalDate fechaAlquiler, float importeAPagar, String codigoProducto, String codigoUso) {
         this.fechaAlquiler = fechaAlquiler;
-        this.fechaDeEntrega = dechaEntrega;
+        this.fechaDeEntrega = fechaAlquiler.plusDays(10);
         this.importeAPagar = importeAPagar;
         this.codigoProducto = codigoProducto;
         this.codigoUso = codigoUso;
