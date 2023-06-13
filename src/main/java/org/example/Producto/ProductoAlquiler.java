@@ -48,6 +48,7 @@ public class ProductoAlquiler extends Producto{
                 this.precioDia*calcularDiferenciaDias(fechaInicioAlquiler,fechaFinAlquiler),
                 codigoProducto,generarClaveHashMap());
         alquileres.put(u.getCodigoUso(),u);
+        setEstado('R');
     }
     public long calcularDiferenciaDias(LocalDate fInicio, LocalDate fFin){
         return  fInicio.until(fFin, ChronoUnit.DAYS);
