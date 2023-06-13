@@ -194,7 +194,7 @@ public class Dialog {
                         LocalDate fechaFinAlquiler = LocalDate.of(Integer.parseInt(fechaFin.substring(0,4)),
                                 Integer.parseInt(fechaFin.substring(4,6)),
                                 Integer.parseInt(fechaFin.substring(6)));
-                        alquilarProducto(cif,codigoArticulo,fechaInicio,fechaFinAlquiler);
+                        alquilarProducto(cif,codigoArticulo,fechaInicioAlquiler,fechaFinAlquiler);
                     }catch(FormatoCifInvalido e){
                         System.out.println(e.getMessage());
                     }catch (CodigoAlquilerInvalido e){
@@ -205,6 +205,7 @@ public class Dialog {
                 case 42->{
 
                 }
+                case
                 case 0->{salir =true;}
             }
         }while (!salir);
@@ -288,7 +289,7 @@ public class Dialog {
     private void alquilarProducto(String cif, String codigoArticulo,LocalDate fechaInicio,LocalDate fechaFin){
         Empresa e = hashMapEmpresas.get(cif);
         try{
-            e.alquilarProducto(codigoArticulo,fechaInicio,fechaFin);
+            e.alquilarProducto(codigoArticulo,fechaInicio,fechaFin );
         }catch (ArticuloAlquilado ex) {
             System.out.println(ex.getMessage());
         }

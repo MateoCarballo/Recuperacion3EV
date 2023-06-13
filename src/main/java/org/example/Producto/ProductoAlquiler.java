@@ -52,7 +52,6 @@ public class ProductoAlquiler extends Producto{
     }
     public long calcularDiferenciaDias(LocalDate fInicio, LocalDate fFin){
         return  fInicio.until(fFin, ChronoUnit.DAYS);
-
     }
     public static String generarClaveHashMap() {
         LocalDate currentDate = LocalDate.now();
