@@ -2,7 +2,8 @@ package org.example.Producto;
 
 import org.example.Usos.Usos;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 
 public class ProductoAlquiler extends Producto{
@@ -42,9 +43,19 @@ public class ProductoAlquiler extends Producto{
     public void setAlquileres(HashMap<String, Usos> alquileres) {
         this.alquileres = alquileres;
     }
-    public void crearUso(){
-
+    public void crearUso(String codigoProducto){
+        alquileres.put(generarClaveHashMap(),new Usos(Date.from()))
     }
 
+    public static String generarClaveHashMap() {
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+        int day = currentDate.getDayOfMonth();
+        String formattedYear = String.format("%02d", year);
+        String formattedMonth = String.format("%02d", month);
+        String formattedDay = String.format("%02d", day);
+        return formattedYear + formattedMonth + formattedDay;
+    }
 
 }

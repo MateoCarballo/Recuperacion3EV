@@ -112,7 +112,7 @@ public class Empresa {
     public void alquilarProducto(String codigoProducto) throws ArticuloAlquilado {
         if (comprobarDisponibilidad(codigoProducto)){
             ProductoAlquiler pAlquiler = (ProductoAlquiler) hashMapProductosPorID.get(codigoProducto);
-            pAlquiler.
+            pAlquiler.crearUso(codigoProducto);
         }else{
             throw new ArticuloAlquilado();
         }

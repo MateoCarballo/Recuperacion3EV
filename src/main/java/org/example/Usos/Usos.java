@@ -1,37 +1,38 @@
 package org.example.Usos;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Usos {
-    private Date fechaAlquiler;
-    private Date dechaEntrega;
+    private LocalDate fechaAlquiler;
+    private LocalDate fechaDeEntrega;
     private float importeAPagar;
     private String codigoProducto;
     private String codigoUso;
 
 
-    public Usos(Date fechaAlquiler, Date dechaEntrega, float importeAPagar, String codigoProducto, String codigoUso) {
+    public Usos(LocalDate fechaAlquiler, LocalDate dechaEntrega, float importeAPagar, String codigoProducto, String codigoUso) {
         this.fechaAlquiler = fechaAlquiler;
-        this.dechaEntrega = dechaEntrega;
+        this.fechaDeEntrega = dechaEntrega;
         this.importeAPagar = importeAPagar;
         this.codigoProducto = codigoProducto;
         this.codigoUso = codigoUso;
     }
 
-    public Date getFechaAlquiler() {
+    public LocalDate getFechaAlquiler() {
         return fechaAlquiler;
     }
 
-    public void setFechaAlquiler(Date fechaAlquiler) {
+    public void setFechaAlquiler(LocalDate fechaAlquiler) {
         this.fechaAlquiler = fechaAlquiler;
     }
 
-    public Date getDechaEntrega() {
-        return dechaEntrega;
+    public LocalDate getFechaDeEntrega() {
+        return fechaDeEntrega;
     }
 
-    public void setDechaEntrega(Date dechaEntrega) {
-        this.dechaEntrega = dechaEntrega;
+    public void setFechaDeEntrega(LocalDate fechaDeEntrega) {
+        this.fechaDeEntrega = fechaDeEntrega;
     }
 
     public float getImporteAPagar() {
