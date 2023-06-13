@@ -49,6 +49,19 @@ public class Empresa {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+    public HashMap<String, Producto> getHashMapProductosPorID() {
+        return hashMapProductosPorID;
+    }
+
+    @Override
+    public String toString() {
+        return "Empresa{" +
+                "cif='" + cif + '\'' +
+                ", nombreEmpresa='" + nombreEmpresa + '\'' +
+                ", telefono='" + telefono + '\'' +
+                '}';
+    }
+
     public void anadirProducto(ProductoVenta productoVenta){
         this.hashMapProductosPorID.put(productoVenta.getCodigo(),productoVenta);
     }
@@ -60,9 +73,6 @@ public class Empresa {
         hashMapProductosPorID.remove(codigoProducto);
     }
 
-    public HashMap<String, Producto> getHashMapProductosPorID() {
-        return hashMapProductosPorID;
-    }
 
     public void modificarPrecioProducto(String codigoProducto, float nuevoValor){
         for (Map.Entry<String, Producto> entry : hashMapProductosPorID.entrySet()) {

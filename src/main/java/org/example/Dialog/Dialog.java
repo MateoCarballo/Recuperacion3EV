@@ -205,7 +205,66 @@ public class Dialog {
                 case 42->{
 
                 }
-                case
+                //TODO preguntar a MARIA si esto tiene sentido 2 bucles anidados con hashMap
+                case 51->{
+                    for (Map.Entry<String, Empresa> entryEmpresa : hashMapEmpresas.entrySet()) {
+                        Empresa e = entryEmpresa.getValue();
+                        System.out.println(e);
+                        HashMap<String,Producto> productosEnLaEmpresa = e.getHashMapProductosPorID();
+                        for (Map.Entry<String, Producto> entryProducto : productosEnLaEmpresa.entrySet()) {
+                            Producto p= entryProducto.getValue();
+                            if (p instanceof ProductoAlquiler alquiler) {
+                                System.out.println(alquiler);
+                            } else if (p instanceof ProductoVenta venta) {
+                                System.out.println(venta);
+                            }
+                        }
+                    }
+                }
+                case 52->{
+                    try {
+                    System.out.println("Introduce el cif de la empresa a consultar");
+                    String cif=br.readLine();
+                    validarCIF(cif);
+                    Empresa e = hashMapEmpresas.get(cif);
+                        HashMap<String,Producto> productosEnLaEmpresa = e.getHashMapProductosPorID();
+                        for (Map.Entry<String, Producto> entryProducto : productosEnLaEmpresa.entrySet()) {
+                            Producto p= entryProducto.getValue();
+                            if (p instanceof ProductoAlquiler alquiler) {
+                                System.out.println(alquiler);
+                            } else if (p instanceof ProductoVenta venta) {
+                                System.out.println(venta);
+                            }
+                        }
+                    } catch (FormatoCifInvalido e) {
+                        e.getMessage();
+                    }
+
+                }
+                case 53->{
+                    try {
+                    System.out.println("Calculadora de presupuestos:");
+                    System.out.println("Introduce la fecha de inicio del Alquiler(yyyy/MM/dd)");
+                    String fechaInicio= br.readLine();
+                    LocalDate fechaInicioAlquiler = LocalDate.of(Integer.parseInt(fechaInicio.substring(0,4)),
+                            Integer.parseInt(fechaInicio.substring(4,6)),
+                            Integer.parseInt(fechaInicio.substring(6)));
+                    System.out.println("Introduce la fecha fin del Alquiler(yyyy/MM/dd)");
+                    String fechaFin= br.readLine();
+                    LocalDate fechaFinAlquiler = LocalDate.of(Integer.parseInt(fechaFin.substring(0,4)),
+                            Integer.parseInt(fechaFin.substring(4,6)),
+                            Integer.parseInt(fechaFin.substring(6)));
+                    System.out.println("Introduce el codigo del producto");
+                    String codigoArticulo = br.readLine();
+                    validarCodigoProductoAlquiler(codigoArticulo);
+
+                        System.out.println("El coste del alquiler simulado seria de:");
+                        System.out.println(simularPresupuesto(fechaInicioAlquiler,fechaFinAlquiler,buscarProducto(codigoArticulo)));
+                    } catch (CodigoAlquilerInvalido e) {
+                        e.getMessage();
+                        throw new RuntimeException(e);
+                    }
+                }
                 case 0->{salir =true;}
             }
         }while (!salir);
@@ -294,11 +353,30 @@ public class Dialog {
             System.out.println(ex.getMessage());
         }
     }
+
+    private float simularPresupuesto(LocalDate fechaInicio, LocalDate fechaFin, ProductoAlquiler pA) {
+        return pA.getPrecioDia()*pA.calcularDiferenciaDias(fechaInicio,fechaFin);
+    }
+    private ProductoAlquiler buscarProducto(String codigoProductoAlquiler) {
+        ProductoAlquiler productoADevolver= new ProductoAlquiler();
+        for (Map.Entry<String, Empresa> entryEmpresa : hashMapEmpresas.entrySet()) {
+            Empresa e = entryEmpresa.getValue();
+            HashMap<String,Producto> productosEnLaEmpresa = e.getHashMapProductosPorID();
+            for (Map.Entry<String, Producto> entryProducto : productosEnLaEmpresa.entrySet()) {
+                Producto p= entryProducto.getValue();
+                if ((p instanceof ProductoAlquiler) && (p.getCodigo().equalsIgnoreCase(codigoProductoAlquiler))){
+                        productoADevolver=(ProductoAlquiler) p;
+                        return productoADevolver;
+                }
+            }
+        }
+        return productoADevolver;
+    }
 }
 
 
 
-/* CODIGO ANTES DE USAR HASHMAP
+/*CODIGO ANTES DE USAR HASHMAP
         private void altaProductoAlquiler(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioDiaAlquiler){
         for (Empresa e:listadoEmpresas) {
             if (e.getCif().equalsIgnoreCase(cifEmpresa)){
