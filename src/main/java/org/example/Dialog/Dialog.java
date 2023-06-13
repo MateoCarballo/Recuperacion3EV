@@ -284,8 +284,10 @@ public class Dialog {
                             Integer.parseInt(fechaFin.substring(6)));
                     Empresa e =buscarEmpresa(cif);
                     ProductoAlquiler pAlquiler = buscarProducto(codigoArticulo);
-                    System.out.println("El articulo ha generado: "+"\n");
-                    System.out.println(pAlquiler.calcularIngresosTotales(fechaInicioAlquiler,fechaFinAlquiler));
+                    System.out.println("La empresa "+ e.getNombreEmpresa());
+                    System.out.println("ha generado unos ingresos totales de : "+pAlquiler.calcularIngresosTotales(fechaInicioAlquiler,fechaFinAlquiler));
+                    System.out.println("con el producto"+ pAlquiler.getMarca()+pAlquiler.getModelo());
+                    System.out.println("con un precio/dia de "+pAlquiler.getPrecioDia());
                 }catch(FormatoCifInvalido e){
                     System.out.println(e.getMessage());
                 }catch (CodigoAlquilerInvalido e){
