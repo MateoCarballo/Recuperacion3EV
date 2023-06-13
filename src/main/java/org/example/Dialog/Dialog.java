@@ -9,12 +9,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Dialog {
     private ArrayList<Empresa> listadoEmpresas=null;
+    private HashMap<String,Empresa> hashMapEmpresas=null;
     public void menu() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         listadoEmpresas= new ArrayList<>();
+        hashMapEmpresas= new HashMap<>();
+
         boolean salir=false;
         do{
             System.out.println("""
@@ -163,7 +167,7 @@ public class Dialog {
                         System.out.println("Introduce el CIF de la empresa");
                         String cif = br.readLine();
                         validarCIF(cif);
-                        System.out.println("Introduce el producto del articulo a Alquilar");
+                        System.out.println("Introduce el codigo del articulo a Alquilar");
                         String codigoArticulo = br.readLine();
                         validarCodigoProductoAlquiler(codigoArticulo);
 
