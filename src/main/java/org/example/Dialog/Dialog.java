@@ -45,6 +45,7 @@ public class Dialog {
                     51.TODAS LAS EMPRESAS CON TODOS LOS PRODUCTOS.
                     52.TODOS LOS PRODUCTOS DE UNA UNICA EMPRESA.
                     53.PRESUPUESTO DE ALQUILER(NECESITARA LAS FECHAS Y EL CODIGO DEL PRODUCTO).
+                    54.CALCULAR RECAUDADO POR PRODUCTO EN CADA EMPRESA.
                 6.EXPORTACIONES.
                 0.SALIR DE LA APLICACION.
                 ###############################################################
@@ -172,8 +173,6 @@ public class Dialog {
                         String cif = br.readLine();
                         validarCIF(cif);
                         System.out.println("Estos son los productos disponibles para Alquilar:");
-                        String[] productosDisponiblesAlquiler;
-                        int longitudArray;
                         HashMap<String,Producto> productoPorId= hashMapEmpresas.get(cif).getHashMapProductosPorID();
                         for (Map.Entry<String, Producto> entry : productoPorId.entrySet()) {
                             Producto producto = entry.getValue();
@@ -264,6 +263,35 @@ public class Dialog {
                         e.getMessage();
                         throw new RuntimeException(e);
                     }
+                }
+                case 54->{
+                    try{
+                    System.out.println("Introduce el CIF de la empresa");
+                    String cif = br.readLine();
+                    validarCIF(cif);
+                    System.out.println("Introduce el codigo del articulo  de Alquiler para saber cuanto ha recaudado");
+                    String codigoArticulo = br.readLine();
+                    validarCodigoProductoAlquiler(codigoArticulo);
+                    System.out.println("DESDE (yyyy/MM/dd)");
+                    String fechaInicio= br.readLine();
+                    LocalDate fechaInicioAlquiler = LocalDate.of(Integer.parseInt(fechaInicio.substring(0,4)),
+                            Integer.parseInt(fechaInicio.substring(4,6)),
+                            Integer.parseInt(fechaInicio.substring(6)));
+                    System.out.println("HASTA (yyyy/MM/dd)");
+                    String fechaFin= br.readLine();
+                    LocalDate fechaFinAlquiler = LocalDate.of(Integer.parseInt(fechaFin.substring(0,4)),
+                            Integer.parseInt(fechaFin.substring(4,6)),
+                            Integer.parseInt(fechaFin.substring(6)));
+                    Empresa e =buscarEmpresa(cif);
+                    ProductoAlquiler pAlquiler = buscarProducto(codigoArticulo);
+                    System.out.println("El articulo ha generado: "+"\n");
+                    System.out.println(pAlquiler.calcularIngresosTotales(fechaInicioAlquiler,fechaFinAlquiler));
+                }catch(FormatoCifInvalido e){
+                    System.out.println(e.getMessage());
+                }catch (CodigoAlquilerInvalido e){
+                    System.out.println(e.getMessage());
+                }
+
                 }
                 case 0->{salir =true;}
             }
@@ -371,6 +399,10 @@ public class Dialog {
             }
         }
         return productoADevolver;
+    }
+
+    private Empresa buscarEmpresa(String cif){
+        return hashMapEmpresas.get(cif);
     }
 }
 

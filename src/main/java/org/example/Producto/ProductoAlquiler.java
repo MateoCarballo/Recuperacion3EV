@@ -1,10 +1,12 @@
 package org.example.Producto;
 
+import org.example.Empresa.Empresa;
 import org.example.Usos.Usos;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ProductoAlquiler extends Producto{
     private float precioDia;
@@ -63,6 +65,17 @@ public class ProductoAlquiler extends Producto{
         String digitosMes = String.format("%02d", month);
         String digitosDia = String.format("%02d", day);
         return digitosnAnho + digitosMes + digitosDia;
+    }
+
+    public float calcularIngresosTotales(LocalDate fechaInicioPeriodo,LocalDate fechaFinPeriodo){
+        float ingresosAcumulados=0f;
+        for (Map.Entry<String, Usos> entry : alquileres.entrySet()) {
+            Usos u = entry.getValue();
+            if((fechaInicioPeriodo.isBefore(u.getFechaAlquiler()))&&(fechaFinPeriodo.isAfter(u.getFechaDeEntrega()))){
+                ingresosAcumulados+=u.getImporteAPagar();
+            }
+        }
+        return ingresosAcumulados;
     }
 
     @Override
