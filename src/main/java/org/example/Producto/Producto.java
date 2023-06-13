@@ -49,4 +49,14 @@ public abstract class Producto {
     public void setCif(String cif) {
         this.cif = cif;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "codigo='" + codigo + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", cif='" + cif + '\'' +
+                '}';
+    }
 }

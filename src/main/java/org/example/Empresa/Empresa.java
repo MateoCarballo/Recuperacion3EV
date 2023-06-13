@@ -59,7 +59,11 @@ public class Empresa {
         hashMapProductosPorID.remove(codigoProducto);
     }
 
-    public void modificarPrecioProducto(String codigoProducto,float nuevoValor){
+    public HashMap<String, Producto> getHashMapProductosPorID() {
+        return hashMapProductosPorID;
+    }
+
+    public void modificarPrecioProducto(String codigoProducto, float nuevoValor){
         for (Map.Entry<String, Producto> entry : hashMapProductosPorID.entrySet()) {
             Producto producto = entry.getValue();
             String key = entry.getKey();

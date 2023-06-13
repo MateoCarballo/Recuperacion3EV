@@ -2,6 +2,7 @@ package org.example.Dialog;
 
 import org.example.Empresa.Empresa;
 import org.example.Excepciones.*;
+import org.example.Producto.Producto;
 import org.example.Producto.ProductoAlquiler;
 import org.example.Producto.ProductoVenta;
 
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Dialog {
     private ArrayList<Empresa> listadoEmpresas=null;
@@ -167,10 +169,19 @@ public class Dialog {
                         System.out.println("Introduce el CIF de la empresa");
                         String cif = br.readLine();
                         validarCIF(cif);
-                        System.out.println("Introduce el codigo del articulo a Alquilar");
+                        System.out.println("Estos son los productos disponibles para Alquilar:");
+                        String[] productosDisponiblesAlquiler;
+                        int longitudArray;
+                        HashMap<String,Producto> productoPorId= hashMapEmpresas.get(cif).getHashMapProductosPorID();
+                        for (Map.Entry<String, Producto> entry : productoPorId.entrySet()) {
+                            Producto producto = entry.getValue();
+                                if (producto instanceof ProductoAlquiler pAlquiler) {
+                                    System.out.println(pAlquiler);
+                                }
+                            }
+                    System.out.println("Introduce el codigo del articulo a Alquilar");
                         String codigoArticulo = br.readLine();
                         validarCodigoProductoAlquiler(codigoArticulo);
-
                     }catch(FormatoCifInvalido e){
                         System.out.println(e.getMessage());
                     }catch (CodigoAlquilerInvalido e){

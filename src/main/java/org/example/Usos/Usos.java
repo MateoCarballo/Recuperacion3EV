@@ -17,6 +17,7 @@ public class Usos {
         this.importeAPagar = importeAPagar;
         this.codigoProducto = codigoProducto;
         this.codigoUso = codigoUso;
+        calcularPrecioPeriodoAlquilado();
     }
 
     public LocalDate getFechaAlquiler() {
@@ -59,7 +60,4 @@ public class Usos {
         this.codigoUso = codigoUso;
     }
 
-    public String generarPKCompuesta(String fechaAlquiler){
-        return fechaAlquiler+this.codigoProducto;
-    }
 }
