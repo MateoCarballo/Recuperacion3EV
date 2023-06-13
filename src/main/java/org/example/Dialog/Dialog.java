@@ -194,34 +194,124 @@ public class Dialog {
             throw new ValorIgualACero();
         }
     }
-
-
     private void altaEmpresa(String cif,String nombreEmpresa,String telefono) {
         listadoEmpresas.add(new Empresa(cif,nombreEmpresa,telefono));
+        hashMapEmpresas.put(cif,new Empresa(cif,nombreEmpresa,telefono));
     }
     private void altaProductoVenta(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioVenta){
+        Empresa e = hashMapEmpresas.get(cifEmpresa);
+        e.anadirProducto(new ProductoVenta(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioVenta));
+    }
+    private void altaProductoAlquiler(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioDiaAlquiler){
+        Empresa e = hashMapEmpresas.get(cifEmpresa);
+        e.anadirProducto(new ProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler));
+    }
+    private void borrarProducto(String cifEmpresa, String codigoProducto){
+        Empresa e = hashMapEmpresas.get(cifEmpresa);
+        e.borrarProducto(codigoProducto);
+    }
+    private void modificarPrecioVenta(String cifEmpresa, String codigoProducto, float nuevoValor) {
+        Empresa e = hashMapEmpresas.get(cifEmpresa);
+        e.modificarPrecioProducto(codigoProducto,nuevoValor);
+    }
+    private void modificarPrecioAlquiler(String cifEmpresa, String codigoProducto, float nuevoValor) {
+        Empresa e = hashMapEmpresas.get(cifEmpresa);
+        e.modificarPrecioProducto(codigoProducto,nuevoValor);
+    }
+    private void validarCodigoProducto(String codigoProducto) throws FormatoCodigoInvalido {
+        if (!codigoProducto.matches("[VA][0-9]{3}")) {
+            throw new FormatoCodigoInvalido();
+        }
+    }
+    private void validarCodigoProductoVenta(String codigoVenta) throws CodigoVentaInvalido {
+        if (!codigoVenta.matches("'V'[0-9]{3}")) {
+            throw new CodigoVentaInvalido();
+        }
+    }
+    private void validarCodigoProductoAlquiler(String codigoAlquiler) throws CodigoAlquilerInvalido {
+        if (!codigoAlquiler.matches("'A'[0-9]{3}")) {
+            throw new CodigoAlquilerInvalido();
+        }
+    }
+    private void validarCIF(String validaCIF) throws FormatoCifInvalido {
+        if(!validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}")){
+            throw new FormatoCifInvalido();
+        }
+
+    }
+    /*
+    Un CIF debe tener 9 cifras.
+    La primera cifra (Una letra), indica el tipo de sociedad al que hace referencia, según esta tabla:
+
+    A - Sociedades Anónimas
+    B - Sociedades de responsabilidad limitada
+    C - Sociedades colectivas
+    D - Sociedades comanditarias
+    E - Comunidades de bienes
+    F - Sociedades cooperativas
+    G - Asociaciones y otros tipos no definidos
+    H - Comunidades de propietarios
+    P - Corporaciones locales
+    Q - Organismos autónomos
+    S - Organos de la administración
+    K, L y M - seguramente para compatibilidad con formatos antiguos
+    X - Extranjeros, que en lugar del D.N.I. tienen el N.I.E.
+     */
+//TODO descomponer para validar en cada uno de los casos,
+// insertar algoritmo para comprobar no solo el formato sino
+// tambien que exista y cumpla el algoritmo.
+
+    private void alquilarProducto(String cif, String codigoArticulo){
+        Empresa e = hashMapEmpresas.get(cif);
+        try{
+            e.alquilarProducto(codigoArticulo);
+        }catch (ArticuloAlquilado ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+}
+
+
+
+/* CODIGO ANTES DE USAR HASHMAP
+        private void altaProductoAlquiler(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioDiaAlquiler){
+        for (Empresa e:listadoEmpresas) {
+            if (e.getCif().equalsIgnoreCase(cifEmpresa)){
+                e.anadirProducto(new ProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler));
+            }
+        }
+        }
+
+        /* CODIGO ANTES DE USAR HASHMAP
+        private void altaProductoVenta(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioVenta){
         for (Empresa e:listadoEmpresas) {
             if (e.getCif().equals(cifEmpresa)){
                 e.anadirProducto(new ProductoVenta(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioVenta));
             }
             //TODO crear excepcion si la empresa no existe para que salte si no esta registrada ninguna empresa con el CIF introducido
         }
-    }
-    private void altaProductoAlquiler(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioDiaAlquiler){
-        for (Empresa e:listadoEmpresas) {
-            if (e.getCif().equalsIgnoreCase(cifEmpresa)){
-                e.anadirProducto(new ProductoAlquiler(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioDiaAlquiler));
-            }
         }
-    }
-    private void borrarProducto(String cifEmpresa, String codigoProducto){
+
+        /* CODIGO ANTES DE USAR HASHMAP
+        private void altaProductoVenta(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioVenta){
+        for (Empresa e:listadoEmpresas) {
+            if (e.getCif().equals(cifEmpresa)){
+                e.anadirProducto(new ProductoVenta(codigoProducto,marcaProducto,modeloProducto,cifEmpresa,precioVenta));
+            }
+            //TODO crear excepcion si la empresa no existe para que salte si no esta registrada ninguna empresa con el CIF introducido
+        }
+        }
+
+
+        private void borrarProducto(String cifEmpresa, String codigoProducto){
         for (Empresa e:listadoEmpresas) {
             if (e.getCif().equalsIgnoreCase(cifEmpresa)){
                 e.borrarProducto(codigoProducto);
             }
         }
+
     }
-    private void modificarPrecioVenta(String cifEmpresa, String codigoProducto, float nuevoValor) {
+ private void modificarPrecioVenta(String cifEmpresa, String codigoProducto, float nuevoValor) {
         for (Empresa e:listadoEmpresas) {
             if (e.getCif().equalsIgnoreCase(cifEmpresa)){
                 e.modificarPrecioProducto(codigoProducto,nuevoValor);
@@ -246,40 +336,12 @@ public class Dialog {
         }
     }
     private void validarCodigoProductoAlquiler(String codigoAlquiler) throws CodigoAlquilerInvalido {
-        if (!codigoAlquiler.matches("'V'[0-9]{3}")) {
+        if (!codigoAlquiler.matches("'A'[0-9]{3}")) {
             throw new CodigoAlquilerInvalido();
         }
     }
 
-    /*
-    Un CIF debe tener 9 cifras.
-    La primera cifra (Una letra), indica el tipo de sociedad al que hace referencia, según esta tabla:
-
-    A - Sociedades Anónimas
-    B - Sociedades de responsabilidad limitada
-    C - Sociedades colectivas
-    D - Sociedades comanditarias
-    E - Comunidades de bienes
-    F - Sociedades cooperativas
-    G - Asociaciones y otros tipos no definidos
-    H - Comunidades de propietarios
-    P - Corporaciones locales
-    Q - Organismos autónomos
-    S - Organos de la administración
-    K, L y M - seguramente para compatibilidad con formatos antiguos
-    X - Extranjeros, que en lugar del D.N.I. tienen el N.I.E.
-     */
-//TODO descomponer para validar en cada uno de los casos,
-// insertar algoritmo para comprobar no solo el formato sino
-// tambien que exista y cumpla el algoritmo.
-    private void validarCIF(String validaCIF) throws FormatoCifInvalido {
-        if(!validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}")){
-            throw new FormatoCifInvalido();
-        }
-
-    }
-private void alquilarProducto(String cif, String codigoArticulo){
-        //TODO Revisar el codigo quiza implementar algun algoritmo de busqueda que me de la posicion.
+    private void alquilarProducto(String cif, String codigoArticulo){
          for (Empresa e:listadoEmpresas){
              if (e.getCif().equalsIgnoreCase(cif)){
                  try {
@@ -291,4 +353,7 @@ private void alquilarProducto(String cif, String codigoArticulo){
          }
 }
 }
+ */
+ */
+         */
 

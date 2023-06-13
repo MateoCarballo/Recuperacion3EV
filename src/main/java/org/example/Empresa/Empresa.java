@@ -18,7 +18,7 @@ public class Empresa {
     public Empresa(){
     }
 
-    public Empresa(String cif, String nombreEmpresa, String telefono, HashMap<String, Producto> hashMapProductosPorID) {
+    public Empresa(String cif, String nombreEmpresa, String telefono) {
         this.cif = cif;
         this.nombreEmpresa = nombreEmpresa;
         this.telefono = telefono;
@@ -96,7 +96,6 @@ public class Empresa {
                     ((ProductoAlquiler) listadoProducto).setPrecioDia(nuevoValor);
                 }
             }
-
     }
      */
     public boolean comprobarDisponibilidad(String codigoProductoAlquiler){
@@ -112,6 +111,8 @@ public class Empresa {
 
     public void alquilarProducto(String codigoProducto) throws ArticuloAlquilado {
         if (comprobarDisponibilidad(codigoProducto)){
+            ProductoAlquiler pAlquiler = (ProductoAlquiler) hashMapProductosPorID.get(codigoProducto);
+            pAlquiler.
         }else{
             throw new ArticuloAlquilado();
         }
