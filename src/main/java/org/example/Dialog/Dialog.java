@@ -1,5 +1,6 @@
 package org.example.Dialog;
 
+import Validaciones.Validaciones;
 import org.example.Empresa.Empresa;
 import org.example.Excepciones.*;
 import org.example.Producto.Producto;
@@ -60,7 +61,7 @@ public class Dialog {
                         String nombreEmpresa = br.readLine();
                         System.out.println("CIF Empresa");
                         String cif=br.readLine();
-                        validarCIF(cif);
+                        Validaciones.validarCIF(cif);
                         System.out.println("Telefono de contacto");
                         String telefono = br.readLine();
                         altaEmpresa(cif,nombreEmpresa,telefono);
@@ -74,7 +75,7 @@ public class Dialog {
                         String[] datosProductoVenta = new String[4];
                         System.out.println("Codigo del producto");
                         datosProductoVenta[0]=br.readLine();
-                        validarCodigoProductoVenta(datosProductoVenta[0]);
+                        Validaciones.validarCodigoProductoVenta(datosProductoVenta[0]);
                         System.out.println("Marca");
                         datosProductoVenta[1]=br.readLine();
                         System.out.println("Modelo");
@@ -93,7 +94,7 @@ public class Dialog {
                     try{
                         System.out.println("Codigo del producto");
                         String codigoProducto=br.readLine();
-                        validarCodigoProductoAlquiler(codigoProducto);
+                        Validaciones.validarCodigoProductoAlquiler(codigoProducto);
                         System.out.println("Marca");
                         String marcaProducto = br.readLine();
                         System.out.println("Modelo");
@@ -111,10 +112,10 @@ public class Dialog {
                    try{
                         System.out.println("Introduce el CIF de la empresa");
                         String cif = br.readLine();
-                        validarCIF(cif);
+                        Validaciones.validarCIF(cif);
                         System.out.println("Introduce el codigo del producto a eliminar");
                         String codigoProducto = br.readLine();
-                        validarCodigoProducto(codigoProducto);
+                        Validaciones.validarCodigoProducto(codigoProducto);
                         borrarProducto(cif, codigoProducto);
                     }catch(FormatoCifInvalido errorCIF) {
                        System.out.println(errorCIF.getMessage());
@@ -126,13 +127,13 @@ public class Dialog {
                     try{
                         System.out.println("Introduce la empresa que tiene el producto");
                         String cifEmpresa=br.readLine();
-                        validarCIF(cifEmpresa);
+                        Validaciones.validarCIF(cifEmpresa);
                         System.out.println("Introduce el codigo del producto a modificar");
                         String codigoProducto = br.readLine();
-                        validarCodigoProductoVenta(codigoProducto);
+                        Validaciones.validarCodigoProductoVenta(codigoProducto);
                         System.out.println("Introduce el nuevo valor");
                         float nuevoValor= Float.parseFloat(br.readLine());
-                        validarNumeroIntroducido(nuevoValor);
+                        Validaciones.validarNumeroIntroducido(nuevoValor);
                         modificarPrecioVenta(cifEmpresa,codigoProducto,nuevoValor);
                     }catch(FormatoCifInvalido errorCIF) {
                         System.out.println(errorCIF.getMessage());
@@ -148,13 +149,13 @@ public class Dialog {
                     try{
                         System.out.println("Introduce la empresa que tiene el producto");
                         String cifEmpresa=br.readLine();
-                        validarCIF(cifEmpresa);
+                        Validaciones.validarCIF(cifEmpresa);
                         System.out.println("Introduce el codigo del producto a modificar");
                         String codigoProducto = br.readLine();
-                        validarCodigoProductoAlquiler(codigoProducto);
+                        Validaciones.validarCodigoProductoAlquiler(codigoProducto);
                         System.out.println("Introduce el nuevo valorpor dia");
                         float nuevoValor= Float.parseFloat(br.readLine());
-                        validarNumeroIntroducido(nuevoValor);
+                        Validaciones.validarNumeroIntroducido(nuevoValor);
                         modificarPrecioAlquiler(cifEmpresa,codigoProducto,nuevoValor);
                     }catch(FormatoCifInvalido errorCIF) {
                         System.out.println(errorCIF.getMessage());
@@ -171,7 +172,7 @@ public class Dialog {
                     try {
                         System.out.println("Introduce el CIF de la empresa");
                         String cif = br.readLine();
-                        validarCIF(cif);
+                        Validaciones.validarCIF(cif);
                         System.out.println("Estos son los productos disponibles para Alquilar:");
                         HashMap<String,Producto> productoPorId= hashMapEmpresas.get(cif).getHashMapProductosPorID();
                         for (Map.Entry<String, Producto> entry : productoPorId.entrySet()) {
@@ -182,7 +183,7 @@ public class Dialog {
                             }
                     System.out.println("Introduce el codigo del articulo a Alquilar");
                         String codigoArticulo = br.readLine();
-                        validarCodigoProductoAlquiler(codigoArticulo);
+                        Validaciones.validarCodigoProductoAlquiler(codigoArticulo);
                         System.out.println("Introduce la fecha de comienzo del ALQUILER(yyyy/MM/dd)");
                         String fechaInicio= br.readLine();
                         LocalDate fechaInicioAlquiler = LocalDate.of(Integer.parseInt(fechaInicio.substring(0,4)),
@@ -224,7 +225,7 @@ public class Dialog {
                     try {
                     System.out.println("Introduce el cif de la empresa a consultar");
                     String cif=br.readLine();
-                    validarCIF(cif);
+                    Validaciones.validarCIF(cif);
                     Empresa e = hashMapEmpresas.get(cif);
                         HashMap<String,Producto> productosEnLaEmpresa = e.getHashMapProductosPorID();
                         for (Map.Entry<String, Producto> entryProducto : productosEnLaEmpresa.entrySet()) {
@@ -255,7 +256,7 @@ public class Dialog {
                             Integer.parseInt(fechaFin.substring(6)));
                     System.out.println("Introduce el codigo del producto");
                     String codigoArticulo = br.readLine();
-                    validarCodigoProductoAlquiler(codigoArticulo);
+                        Validaciones.validarCodigoProductoAlquiler(codigoArticulo);
 
                         System.out.println("El coste del alquiler simulado seria de:");
                         System.out.println(simularPresupuesto(fechaInicioAlquiler,fechaFinAlquiler,buscarProducto(codigoArticulo)));
@@ -268,10 +269,10 @@ public class Dialog {
                     try{
                     System.out.println("Introduce el CIF de la empresa");
                     String cif = br.readLine();
-                    validarCIF(cif);
+                    Validaciones.validarCIF(cif);
                     System.out.println("Introduce el codigo del articulo  de Alquiler para saber cuanto ha recaudado");
                     String codigoArticulo = br.readLine();
-                    validarCodigoProductoAlquiler(codigoArticulo);
+                    Validaciones.validarCodigoProductoAlquiler(codigoArticulo);
                     System.out.println("DESDE (yyyy/MM/dd)");
                     String fechaInicio= br.readLine();
                     LocalDate fechaInicioAlquiler = LocalDate.of(Integer.parseInt(fechaInicio.substring(0,4)),
@@ -299,15 +300,6 @@ public class Dialog {
             }
         }while (!salir);
     }
-
-    private void validarNumeroIntroducido(float nuevoValor) throws ValorMenorQueCero, ValorIgualACero {
-        if (nuevoValor<0){
-            throw new ValorMenorQueCero();
-        }
-        if (nuevoValor==0){
-            throw new ValorIgualACero();
-        }
-    }
     private void altaEmpresa(String cif,String nombreEmpresa,String telefono) {
         listadoEmpresas.add(new Empresa(cif,nombreEmpresa,telefono));
         hashMapEmpresas.put(cif,new Empresa(cif,nombreEmpresa,telefono));
@@ -331,27 +323,6 @@ public class Dialog {
     private void modificarPrecioAlquiler(String cifEmpresa, String codigoProducto, float nuevoValor) {
         Empresa e = hashMapEmpresas.get(cifEmpresa);
         e.modificarPrecioProducto(codigoProducto,nuevoValor);
-    }
-    private void validarCodigoProducto(String codigoProducto) throws FormatoCodigoInvalido {
-        if (!codigoProducto.matches("[VA][0-9]{3}")) {
-            throw new FormatoCodigoInvalido();
-        }
-    }
-    private void validarCodigoProductoVenta(String codigoVenta) throws CodigoVentaInvalido {
-        if (!codigoVenta.matches("'V'[0-9]{3}")) {
-            throw new CodigoVentaInvalido();
-        }
-    }
-    private void validarCodigoProductoAlquiler(String codigoAlquiler) throws CodigoAlquilerInvalido {
-        if (!codigoAlquiler.matches("'A'[0-9]{3}")) {
-            throw new CodigoAlquilerInvalido();
-        }
-    }
-    private void validarCIF(String validaCIF) throws FormatoCifInvalido {
-        if(!validaCIF.matches("[ABCDEFGHPQSKLMX][0-9]{8}")){
-            throw new FormatoCifInvalido();
-        }
-
     }
     /*
     Un CIF debe tener 9 cifras.
