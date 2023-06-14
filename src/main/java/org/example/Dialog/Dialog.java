@@ -1,5 +1,6 @@
 package org.example.Dialog;
 
+import org.example.Exportaciones.ExportarGson;
 import org.example.Validaciones.Validaciones;
 import org.example.Empresa.Empresa;
 import org.example.Excepciones.*;
@@ -298,6 +299,38 @@ public class Dialog {
                 }
 
                 }
+                // Exportar Empresa a xml
+                case 61->{
+                    try {
+                        System.out.println("Introduce el CIF de la empresa que deseas guardar en el archivo con extension '.xml'");
+                        String cif =br.readLine();
+                        Validaciones.validarCIF(cif);
+                        Empresa.exportarEmpresaXML(hashMapEmpresas.get(cif));
+                    } catch (FormatoCifInvalido e) {
+                        e.getMessage();
+                    }
+                }
+                // Exportar Empresa a Gson
+                case 62->{
+                    try {
+                        System.out.println("Introduce el CIF de la empresa que deseas guardar en el archivo con extension '.json'");
+                        String cif =br.readLine();
+                        Validaciones.validarCIF(cif);
+                        Empresa.exportarEmpresaGSON(hashMapEmpresas.get(cif));
+                    } catch (FormatoCifInvalido e) {
+                        e.getMessage();
+                    }
+                }
+                case 63->{
+                    try {
+                        System.out.println("Introduce el CIF de la empresa que deseas guardar en el archivo con extension '.txt");
+                        String cif =br.readLine();
+                        Validaciones.validarCIF(cif);
+                        Empresa.exportarEmpresaTXT(hashMapEmpresas.get(cif));
+                    } catch (FormatoCifInvalido e) {
+                        e.getMessage();
+                    }
+                }
                 case 0->{salir =true;}
             }
         }while (!salir);
@@ -326,27 +359,6 @@ public class Dialog {
         Empresa e = hashMapEmpresas.get(cifEmpresa);
         e.modificarPrecioProducto(codigoProducto,nuevoValor);
     }
-    /*
-    Un CIF debe tener 9 cifras.
-    La primera cifra (Una letra), indica el tipo de sociedad al que hace referencia, según esta tabla:
-
-    A - Sociedades Anónimas
-    B - Sociedades de responsabilidad limitada
-    C - Sociedades colectivas
-    D - Sociedades comanditarias
-    E - Comunidades de bienes
-    F - Sociedades cooperativas
-    G - Asociaciones y otros tipos no definidos
-    H - Comunidades de propietarios
-    P - Corporaciones locales
-    Q - Organismos autónomos
-    S - Organos de la administración
-    K, L y M - seguramente para compatibilidad con formatos antiguos
-    X - Extranjeros, que en lugar del D.N.I. tienen el N.I.E.
-     */
-//TODO descomponer para validar en cada uno de los casos,
-// insertar algoritmo para comprobar no solo el formato sino
-// tambien que exista y cumpla el algoritmo.
 
     private void alquilarProducto(String cif, String codigoArticulo,LocalDate fechaInicio,LocalDate fechaFin){
         Empresa e = hashMapEmpresas.get(cif);
@@ -380,8 +392,6 @@ public class Dialog {
         return hashMapEmpresas.get(cif);
     }
 }
-
-
 
 /*CODIGO ANTES DE USAR HASHMAP
         private void altaProductoAlquiler(String codigoProducto, String marcaProducto, String modeloProducto, String cifEmpresa, float precioDiaAlquiler){

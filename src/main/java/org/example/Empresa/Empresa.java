@@ -1,16 +1,25 @@
 package org.example.Empresa;
 
+import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
 import org.example.Excepciones.ArticuloAlquilado;
+import org.example.Exportaciones.ExportarGson;
+import org.example.Exportaciones.ExportarTxt;
+import org.example.Exportaciones.ExportarXml;
 import org.example.Producto.Producto;
 import org.example.Producto.ProductoAlquiler;
 import org.example.Producto.ProductoVenta;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Empresa {
+import static org.example.Constantes.PATH_FICHEROS;
+
+public class Empresa implements Serializable {
     private String cif;
     private String nombreEmpresa;
     private String telefono;
@@ -130,6 +139,27 @@ public class Empresa {
             pAlquiler.crearUso(codigoProducto,fechaI,fechaF);
         }else{
             throw new ArticuloAlquilado();
+        }
+    }
+    public static void exportarEmpresaGSON(Empresa e){
+        try {
+            ExportarGson.writeEmpresaGson(new Gson(),PATH_FICHEROS+e.getNombreEmpresa(),e);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    public static void exportarEmpresaXML(Empresa e){
+        try {
+            ExportarXml.writeEmpresaXML(new XStream(),e,PATH_FICHEROS+e.getNombreEmpresa());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    public static void exportarEmpresaTXT(Empresa e) {
+        try {
+            ExportarTxt.writeEmpresaTxt(PATH_FICHEROS + e.getNombreEmpresa(), e);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }
