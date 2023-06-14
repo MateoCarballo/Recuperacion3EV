@@ -1,14 +1,12 @@
 package org.example;
 
-import org.example.Dialog.Dialog;
+import org.example.Dialog.Dialogg;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args){
-        Dialog dialogo = new Dialog();
+        Dialogg dialogo = new Dialogg();
         try {
             dialogo.menu();
         } catch (IOException e) {
