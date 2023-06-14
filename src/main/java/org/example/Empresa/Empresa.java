@@ -143,16 +143,17 @@ public class Empresa implements Serializable {
     }
     public static void exportarEmpresaGSON(Empresa e){
         try {
-            ExportarGson.writeEmpresaGson(new Gson(),PATH_FICHEROS+e.getNombreEmpresa(),e);
+            ExportarGson.writeEmpresaGson(PATH_FICHEROS+e.getNombreEmpresa()+".json",e);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
     public static void exportarEmpresaXML(Empresa e){
         try {
-            ExportarXml.writeEmpresaXML(new XStream(),e,PATH_FICHEROS+e.getNombreEmpresa());
+            ExportarXml.writeEmpresaXML(new XStream(),e,PATH_FICHEROS+e.getNombreEmpresa()+".xml");
+
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            System.out.println(ex.getMessage());
         }
     }
     public static void exportarEmpresaTXT(Empresa e) {

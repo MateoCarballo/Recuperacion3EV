@@ -22,7 +22,7 @@ public class Dialogg {
     public void menu() throws IOException {
         listadoEmpresas= new ArrayList<>();
         hashMapEmpresas= new HashMap<>();
-
+        crearObjetos();
         boolean salir=false;
         do{
             System.out.println("""
@@ -77,7 +77,7 @@ public class Dialogg {
 
     private void dialogoExportar(int exportacion) {
         try {
-            System.out.println("Introduce el CIF de la empresa que deseas guardar en el archivo con extension '.xml'");
+            System.out.println("Introduce el CIF de la empresa que deseas guardar en el archivo");
             String cif =br.readLine();
             Validaciones.validarCIF(cif);
             switch (exportacion) {
@@ -100,6 +100,7 @@ public class Dialogg {
 
     private void exportarXML(String cif) {
         Empresa.exportarEmpresaXML(hashMapEmpresas.get(cif));
+        System.out.println("Fichero grabado con exito");
     }
     private void dialogoRecaudacionProductoEnPeriodo() {
         try{
@@ -380,6 +381,12 @@ public class Dialogg {
 
     public Empresa buscarEmpresa(String cif){
         return hashMapEmpresas.get(cif);
+    }
+    public void crearObjetos(){
+        Empresa e = new Empresa("A12345678","Nombre Empresa","987654321");
+        ProductoAlquiler pAlquiler = new ProductoAlquiler("A123","Marca","Modelo","A12345678",3.5f);
+        hashMapEmpresas.put(e.getCif(),e);
+        e.anadirProducto(pAlquiler);
     }
 }
 

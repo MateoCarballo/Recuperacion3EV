@@ -17,10 +17,10 @@ public final class ExportarGson {
 
     }
 
-    public static void writeEmpresaGson(Gson gson , String fileName, Empresa e) throws IOException,FileNotFoundException {
+    public static void writeEmpresaGson( String fileName, Empresa e) throws IOException,FileNotFoundException {
         try{
 	  File myFile = new File(fileName);
-	  gson = new GsonBuilder().setPrettyPrinting().create();
+	  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	  FileWriter writer = new FileWriter(myFile);
 	  gson.toJson(e,writer);
         }catch (FileNotFoundException ex){

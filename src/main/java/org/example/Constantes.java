@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.Empresa.Empresa;
+import org.example.Producto.ProductoAlquiler;
+
 public final class Constantes {
     /*
    Un CIF debe tener 9 cifras.
