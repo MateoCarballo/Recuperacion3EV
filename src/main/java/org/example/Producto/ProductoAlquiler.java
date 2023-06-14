@@ -80,7 +80,9 @@ public class ProductoAlquiler extends Producto{
 
     @Override
     public String toString() {
-        return super.toString()+"\n"+"ProductoAlquiler{" +
+        return super.toString()+
+                "\n"+
+                " ProductoAlquiler{" +
                 "precioDia=" + precioDia +
                 ", estado=" + estado +
                 ", alquileres=" + alquileres +

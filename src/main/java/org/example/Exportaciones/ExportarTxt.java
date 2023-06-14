@@ -20,12 +20,13 @@ public final class ExportarTxt {
     public static void writeEmpresaTxt(String filePath,Empresa e) throws IOException {
         BufferedWriter out = null;
         try {
-        File originF = new File(filePath), destF = new File(filePath);
-        originF.createNewFile();
+        File file = new File(filePath);
+        file.createNewFile();
         out = new BufferedWriter(new FileWriter(filePath));
-        out.write(e.getCif());
-        out.write(e.getNombreEmpresa());
-        out.write(e.getTelefono());
+        out.write(e.toString());
+        out.write(e.getCif()+" ");
+        out.write(e.getNombreEmpresa()+" ");
+        out.write(e.getTelefono()+" ");
         HashMap<String,Producto> hashProductos= e.getHashMapProductosPorID();
         Set<String> claves = e.getHashMapProductosPorID().keySet();
             for (String clave: claves) {
@@ -35,7 +36,9 @@ public final class ExportarTxt {
                     out.write(pVenta.toString());
                 }
             }
+            System.out.println("Fichero grabado con exito");
         out.flush();
+
     } catch (IOException ex) {
             throw new RuntimeException(ex);
         } finally {

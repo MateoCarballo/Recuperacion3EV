@@ -158,7 +158,7 @@ public class Empresa implements Serializable {
     }
     public static void exportarEmpresaTXT(Empresa e) {
         try {
-            ExportarTxt.writeEmpresaTxt(PATH_FICHEROS + e.getNombreEmpresa(), e);
+            ExportarTxt.writeEmpresaTxt(PATH_FICHEROS + e.getNombreEmpresa()+".txt", e);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

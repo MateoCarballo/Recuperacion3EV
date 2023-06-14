@@ -1,0 +1,2 @@
+Empresa{cif='A12345678', nombreEmpresa='Nombre Empresa', telefono='987654321'}A12345678 Nombre Empresa 987654321 Producto{ codigo='A123', marca='Marca', modelo='Modelo', cif='A12345678'} 
+ ProductoAlquiler{precioDia=3.5, estado=L, alquileres={}}
