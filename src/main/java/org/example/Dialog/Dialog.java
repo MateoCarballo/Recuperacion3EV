@@ -48,6 +48,9 @@ public class Dialog {
                     53.PRESUPUESTO DE ALQUILER(NECESITARA LAS FECHAS Y EL CODIGO DEL PRODUCTO).
                     54.CALCULAR RECAUDADO POR PRODUCTO EN CADA EMPRESA.
                 6.EXPORTACIONES.
+                    61.EXPORTAR PRODUCTOS DE UNA EMPRESA A FICHERO .xml
+                    62.EXPORTAR PRODUCTOS DE UNA EMPRESA A FICHERO .json
+                    63.EXPORTAR PRODUCTOS DE UNA EMPRESA A FICHERO .txt
                 0.SALIR DE LA APLICACION.
                 ###############################################################
                 """);
