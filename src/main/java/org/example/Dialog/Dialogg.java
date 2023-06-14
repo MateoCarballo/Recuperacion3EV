@@ -56,21 +56,21 @@ public class Dialogg {
             String lecturaMenu=br.readLine();
 
             switch (Integer.parseInt(lecturaMenu)){
-                case 11-> dialogoAddEmpresa();
+                case 11 ->dialogoAddEmpresa();
                 case 121->dialogoProductoVenta();
                 case 122->dialogoProductoAlquiler();
-                case 21->dialogoBajaProductoAlquiler();
+                case 21 ->dialogoBajaProductoAlquiler();
                 case 311->dialogoModificarProductoVenta();
-                case 312-> dialogoModificarProductoAlquiler();
-                case 41-> dialogoNuevoAlquiler();
-                case 51-> dialogoMostrarTodasEmpresasProductos();
-                case 52-> dialogoMostrarProductosEmpresa();
-                case 53-> dialogoCalcularPresupuesto();
-                case 54-> dialogoRecaudacionProductoEnPeriodo();
-                case 61-> dialogoExportar(1);
-                case 62-> dialogoExportar(2);
-                case 63-> dialogoExportar(3);
-                case 0-> salir =true;
+                case 312->dialogoModificarProductoAlquiler();
+                case 41 ->dialogoNuevoAlquiler();
+                case 51 ->dialogoMostrarTodasEmpresasProductos();
+                case 52 ->dialogoMostrarProductosEmpresa();
+                case 53 ->dialogoCalcularPresupuesto();
+                case 54 ->dialogoRecaudacionProductoEnPeriodo();
+                case 61 ->dialogoExportar(1);
+                case 62 ->dialogoExportar(2);
+                case 63 ->dialogoExportar(3);
+                case 0  ->salir =true;
             }
         }while (!salir);
     }
