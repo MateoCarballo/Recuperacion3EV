@@ -1,6 +1,6 @@
 package org.example.Dialog;
 
-import Validaciones.Validaciones;
+import org.example.Validaciones.Validaciones;
 import org.example.Empresa.Empresa;
 import org.example.Excepciones.*;
 import org.example.Producto.Producto;
@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

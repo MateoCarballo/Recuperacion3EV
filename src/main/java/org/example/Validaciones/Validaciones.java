@@ -1,4 +1,4 @@
-package Validaciones;
+package org.example.Validaciones;
 
 import org.example.Excepciones.*;
 

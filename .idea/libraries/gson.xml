@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="gson">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/src/libs/gson" />
+      <root url="file://$PROJECT_DIR$/src/libs/jaxb" />
+      <root url="file://$PROJECT_DIR$/src/libs/gson" />
+      <root url="file://$PROJECT_DIR$/src/libs/xstream" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/src/libs/gson" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/src/libs/gson" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/src/libs/jaxb" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/src/libs/xstream" recursive="false" />
+  </library>
+</component>
